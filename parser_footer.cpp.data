@@ -55,19 +55,20 @@
     }
     stream.push_back(token);
   }
-  cout << "\nTesting tokens with given token stream: ";
-  for(auto token : stream){
-    cout << token << " ";
-  }
-  cout << endl;
+  cout << "\nTesting input token stream: ";
+
+  int exit_status = 0;   
   if (initial->parseTokens(stream)){
-    cout << "The tokens ARE ACCEPTED given the grammar\n";
+    cout << "Accepted";
   } else {
-    cout << "The tokens ARE NOT ACCEPTED in the grammar\n";
+    exit_status = 1; 
+    cout << "Rejected";
   }
+  cout << "\n\n";
 
   writeToDOT(initial);
-  return 0;
+
+  return exit_status;
 }
 
 void printMap(map<string, list<string> > m){
@@ -100,7 +101,6 @@ void writeToDOT(ParserState *state)
 
   outStream << "}\n";
   outStream.close();
-  cout << "\nParser written to parser.dot. Type 'make dot' to generate the .png image\n\n";
 }
 
 void generateSubStates(ParserState *currentState, int &counter, list<string> keys){
