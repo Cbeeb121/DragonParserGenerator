@@ -1,0 +1,21 @@
+digraph automaton {
+	graph[rankdir = "LR"]
+	ratio = auto;
+	"state1" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #1</font></td></tr><tr><td align="left" port="r2">S -&gt;  &bull; A</td></tr><tr><td align="left" port="r2">A -&gt;  &bull; B</td></tr><tr><td align="left" port="r2">A -&gt;  &bull; ~</td></tr><tr><td align="left" port="r2">B -&gt;  &bull; C</td></tr><tr><td align="left" port="r2">B -&gt;  &bull; hello</td></tr><tr><td align="left" port="r2">B -&gt;  &bull; world</td></tr></table>> ];
+	"state2" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #2</font></td></tr><tr><td align="left" port="r2">S -&gt; A &bull; </td></tr></table>> ];
+	"state3" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #3</font></td></tr><tr><td align="left" port="r2">A -&gt; B &bull; </td></tr></table>> ];
+	"state4" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #4</font></td></tr><tr><td align="left" port="r2">A -&gt; ~ &bull; </td></tr></table>> ];
+	"state5" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #5</font></td></tr><tr><td align="left" port="r2">B -&gt; C &bull; </td></tr></table>> ];
+	"state6" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #6</font></td></tr><tr><td align="left" port="r2">B -&gt; hello &bull; </td></tr></table>> ];
+	"state7" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #7</font></td></tr><tr><td align="left" port="r2">B -&gt; w &bull; orld</td></tr></table>> ];
+	"state8" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #8</font></td></tr><tr><td align="left" port="r2">B -&gt; wo &bull; rld</td></tr></table>> ];
+	"state9" [ style = "filled" penwidth = 1 fillcolor = "white" fontname = "Courier New" shape = "Mrecord" label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="white"><tr><td bgcolor="black" align="center" colspan="2"><font color="white"> State #9</font></td></tr><tr><td align="left" port="r2">B -&gt; world &bull; </td></tr></table>> ];
+	state1->state2[penwidth = 5 fontcolor = "black" label = "A"];
+	state1->state3[penwidth = 5 fontcolor = "black" label = "B"];
+	state1->state4[penwidth = 5 fontcolor = "black" label = "~"];
+	state1->state5[penwidth = 5 fontcolor = "black" label = "C"];
+	state1->state6[penwidth = 5 fontcolor = "black" label = "hello"];
+	state1->state7[penwidth = 5 fontcolor = "black" label = "w"];
+	state7->state8[penwidth = 5 fontcolor = "black" label = "o"];
+	state8->state9[penwidth = 5 fontcolor = "black" label = "rld"];
+}

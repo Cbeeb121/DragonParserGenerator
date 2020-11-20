@@ -1,0 +1,140 @@
+#include <iostream>
+#include <list>
+#include <map>
+#include <string>
+#include <fstream>
+#include <ostream>
+using namespace std;
+
+class Item;
+class Edge;
+class ParserState;
+list<Edge> global_edges;
+
+void printMap(map<string, list<string> > m);
+void writeToDOT(ParserState *state);
+void generateSubStates(ParserState *state, int &counter, list<string> keys);
+
+class Item
+{
+public:
+  Item() : myKey("") {};
+  Item(string key, list<string> lhs, list<string> rhs) : myKey(key), myLHS(lhs), myRHS(rhs){};
+  string getKey() { return myKey; }
+  list<string> getLHS() { return myLHS; }
+  list<string> getRHS() { return myRHS; }
+  void addKey(string key) {
+    myKey = key;
+  }
+  void addLHS(list<string> left){
+    myLHS = left;
+  }
+  void addRHS(list<string> right){
+    myRHS = right;
+  }
+  void setRHSIsTerminal(bool term){
+    rhs_is_terminal = term;
+  }
+  bool hasTerminalRHS() {
+    return rhs_is_terminal;
+  }
+
+  string lhs_to_string() {
+    string s = "";
+    for (auto str : myLHS){
+      s += str; 
+    }
+    return s;
+  }
+  string rhs_to_string() {
+    string s = "";
+    for (auto str : myRHS){
+      s += str;
+    }
+    return s;
+  }
+
+private:
+  bool rhs_is_terminal; 
+  string myKey;
+  list<string> myLHS;
+  list<string> myRHS;
+};
+
+class Edge
+{
+public:
+  Edge(ParserState *src, ParserState *tgt, string token, bool isTerminal) : mySrc(src), myTgt(tgt), myToken(token), myTokenIsTerminal(isTerminal) {};
+  ParserState *getSrc() { return mySrc; }
+  ParserState *getTgt() { return myTgt; }
+  string getToken() { return myToken; }
+  bool tokenIsTerminal() { return myTokenIsTerminal; }
+
+private:
+  ParserState *mySrc;
+  ParserState *myTgt;
+  string myToken;
+  bool myTokenIsTerminal;
+};
+
+class ParserState
+{
+public:
+  ParserState(int id) : myID(id){};
+  const int getID() { return myID; }
+  void to_dot(ostream &out)
+  {
+    string s = "\t\"state" + to_string(myID) + "\" [ style = \"filled\" penwidth = 1 fillcolor = \"white\" fontname = \"Courier New\" shape = \"Mrecord\" label =<<table border=\"0\" cellborder=\"0\" cellpadding=\"3\" bgcolor=\"white\"><tr><td bgcolor=\"black\" align=\"center\" colspan=\"2\"><font color=\"white\"> State #" + to_string(myID) + "</font></td></tr>";
+    for (auto item : items)
+    {
+      s += "<tr><td align=\"left\" port=\"r2\">";
+      s += item->getKey() + " -&gt; " + item->lhs_to_string() + " &bull; " + item->rhs_to_string();
+      s += "</td></tr>";
+    }
+    s += "</table>> ];\n";
+    out << s;
+    for (auto edge : outgoingEdges)
+    {
+      edge.getTgt()->to_dot(out);
+    }
+  }
+  bool parseTokens(list<string> tokenstream){
+    bool passing = false;
+    if (0 < tokenstream.size()){
+      for (auto edge : outgoingEdges){
+        if (edge.getToken() == tokenstream.front() && edge.tokenIsTerminal()){
+          tokenstream.pop_front();
+          passing = edge.getTgt()->parseTokens(tokenstream) || passing;
+          return passing; 
+        }
+      }
+    } else {
+      return true; 
+    }
+  }
+  void addItem(Item *item)
+  {
+    items.push_back(item);
+  }
+  void addOutgoingEdge(Edge edge)
+  {
+    outgoingEdges.push_back(edge);
+  };
+  const list<Item *> getItems()
+  {
+    return items;
+  }
+
+private:
+  list<Edge> outgoingEdges;
+  list<Item *> items;
+  const int myID;
+};
+
+int main(int argc, char **argv)
+{
+  if (argc < 2)
+  {
+    cout << "Yooo hooo! I expected an input token stream file (ex. `test.tokens`)\n";
+    return 0;
+  }

@@ -1,0 +1,14 @@
+'make build'
+build: 
+  - compile ./dragonparse
+  g++ dragonparse.cpp
+
+'make run'
+run: 
+  // run dragonparse with input.grammar
+  call "./dragonparse input.grammar"
+  ./dragonparse input.grammar -o parser.cpp
+  g++ parser.cpp -o parser
+
+make test 
+  ./parser test.tokens
