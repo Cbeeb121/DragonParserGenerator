@@ -19,3 +19,9 @@ make run
 make test
 ```
 * Tests whether a token fits inside the grammar based on a given input token stream file `test.tokens`
+* Generates a `.dot` file representing the structure of the parser
+
+```
+make dot
+```
+* Builds a `.png` file from the `.dot` file generated in the `make test` step
