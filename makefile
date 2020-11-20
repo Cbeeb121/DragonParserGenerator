@@ -10,6 +10,6 @@ test:
 	./parser test.tokens
 
 clean:
-	rm *.o *.dot *.png parser dragonparse
+	rm *.o *.dot *.png parser.cpp parser dragonparse
 dot:
 	dot -Tpng -o parser.png parser.dot
