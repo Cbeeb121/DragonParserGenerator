@@ -1,7 +1,5 @@
 # Dragon Parser Generator 
 
-
-
 ### Make Targets 
 
 ```
@@ -25,3 +23,10 @@ make test
 make dot
 ```
 * Builds a `.png` file from the `.dot` file generated in the `make test` step
+
+### Things to note 
+If the input of your test token file contains an empty space, it will be converted into "~" for testing
+```
+# test.tokens
+  [1,1]
+```

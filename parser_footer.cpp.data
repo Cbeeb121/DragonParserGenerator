@@ -50,6 +50,9 @@
     else{
       cout << "\nline had neither [] or :\n";
     }
+    if(token == " "){
+      token = "~";
+    }
     stream.push_back(token);
   }
   cout << "\nTesting tokens with given token stream: ";
