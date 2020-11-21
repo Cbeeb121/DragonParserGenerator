@@ -1,0 +1,11 @@
+# Executables
+dragonparse
+parser
+parser.dSYM/*
+
+parser.cpp
+
+# Random stuff
+*.dot 
+*.png
+*.o
