@@ -5,10 +5,8 @@ main.o: main.cpp
 run: 
 	./dragonparse input.grammar
 	g++ -std=c++11 -g -Wall -Wno-c++11-extensions parser.cpp -o parser
-
 test: 
 	./parser test.tokens
-
 clean:
 	rm *.o *.dot *.png parser.cpp parser dragonparse
 dot:

@@ -7,7 +7,6 @@ using namespace std;
 
 void buildMap(string file);
 void addToMap(string key, string rhs);
-void printMap();
 void map_to_source(ostream &out); 
 map<string, list<string> > grammar_map;
 
@@ -36,7 +35,6 @@ int main(int argc, char **argv){
   footerFile.close();
   // deal with header
   outStream.close(); 
-  // build parser.cpp here
 }
 
 void buildMap(string file){
@@ -69,22 +67,6 @@ void addToMap(string key, string rhs){
     rhs = rhs.substr(1, rhs.length());
   }
   grammar_map[key].push_back(rhs);
-}
-
-void printMap(){
-  for (auto it = grammar_map.begin(); it != grammar_map.end(); ++it){
-    cout << it->first;
-    cout << ": ";
-    int count = 0;
-    for (auto i : it->second){
-      cout << i;
-      if (count < it->second.size() - 1){
-        cout << ", ";
-        count++;
-      }
-    }
-    cout << "\n";
-  }
 }
 
 void map_to_source(ostream &out) {
